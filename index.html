@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keyuan Zhang | SJTU Accounting</title>
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #2e6da4;
+      --light-bg: #f7f9fc;
+      --border: #dde3ea;
+      --text: #2c2c2c;
+      --muted: #5a6a7a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Georgia", serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav ul {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      list-style: none;
+      display: flex;
+      gap: 0.25rem;
+    }
+    nav ul li a {
+      display: block;
+      padding: 0.85rem 1rem;
+      color: #cdd9e8;
+      text-decoration: none;
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: #fff; }
+
+    /* ── HERO ── */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #264d73 100%);
+      color: #fff;
+      padding: 4rem 1.5rem 3.5rem;
+    }
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 3px solid rgba(255,255,255,0.4);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .hero-text h1 {
+      font-size: 2.2rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .hero-text .title {
+      font-size: 1rem;
+      color: #a8c4de;
+      margin-bottom: 0.2rem;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+    .hero-text .contact {
+      margin-top: 1rem;
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 0.88rem;
+      color: #cdd9e8;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+    .hero-text .contact a { color: #a8c4de; text-decoration: none; }
+    .hero-text .contact a:hover { color: #fff; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    section { margin-bottom: 3rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── ABOUT ── */
+    .about p { margin-bottom: 0.9rem; color: var(--text); }
+
+    /* ── POSITIONS ── */
+    .position-list { list-style: none; }
+    .position-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.45rem 0;
+      border-bottom: 1px dotted var(--border);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .pos-left { flex: 1 1 auto; }
+    .pos-role { font-weight: bold; }
+    .pos-org { color: var(--muted); font-size: 0.92rem; }
+    .pos-date {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-family: "Helvetica Neue", sans-serif;
+      white-space: nowrap;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-list { list-style: none; }
+    .edu-list li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 2rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dotted var(--border);
+    }
+    .edu-degree { font-weight: bold; }
+    .edu-school { color: var(--muted); font-size: 0.92rem; }
+    .edu-year {
+      color: var(--muted);
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 0.88rem;
+      align-self: center;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { list-style: none; counter-reset: pub-counter; }
+    .pub-list li {
+      counter-increment: pub-counter;
+      padding: 0.8rem 0 0.8rem 2.2rem;
+      border-bottom: 1px dotted var(--border);
+      position: relative;
+    }
+    .pub-list li::before {
+      content: counter(pub-counter) ".";
+      position: absolute;
+      left: 0;
+      top: 0.8rem;
+      color: var(--accent);
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 0.85rem;
+    }
+    .pub-title { font-style: italic; }
+    .pub-journal {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .pub-note {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── WORKING PAPERS ── */
+    .wp-list { list-style: none; }
+    .wp-list li {
+      padding: 0.8rem 0 0.8rem 1.2rem;
+      border-left: 3px solid var(--border);
+      margin-bottom: 0.6rem;
+    }
+    .wp-list li:hover { border-left-color: var(--accent); }
+    .wp-note {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── RESEARCH PROJECTS ── */
+    .project-list { list-style: none; }
+    .project-list li {
+      padding: 0.7rem 0;
+      border-bottom: 1px dotted var(--border);
+    }
+    .proj-title { font-style: italic; }
+
+    /* ── TEACHING ── */
+    .teaching-block { margin-bottom: 1.5rem; }
+    .teaching-block h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .course-list { list-style: none; padding-left: 1rem; }
+    .course-list li {
+      padding: 0.3rem 0;
+      border-bottom: 1px dotted var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .course-sems {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+
+    /* ── AWARDS ── */
+    .award-list { list-style: none; }
+    .award-list li {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dotted var(--border);
+      align-items: baseline;
+    }
+    .award-year {
+      font-family: "Helvetica Neue", sans-serif;
+      font-weight: bold;
+      color: var(--accent);
+      min-width: 3rem;
+      font-size: 0.92rem;
+    }
+
+    /* ── SERVICE ── */
+    .service-block { margin-bottom: 1.2rem; }
+    .service-block h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .service-block ul {
+      padding-left: 1.4rem;
+      color: var(--text);
+    }
+    .service-block ul li { padding: 0.2rem 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light-bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner { flex-direction: column; gap: 1.5rem; }
+      nav ul { flex-wrap: wrap; padding: 0 0.5rem; }
+      nav ul li a { padding: 0.6rem 0.6rem; }
+      .edu-list li { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#working-papers">Working Papers</a></li>
+    <li><a href="#research">Research Grants</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#service">Service</a></li>
+    <li><a href="#awards">Awards</a></li>
+  </ul>
+</nav>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="hero-inner">
+    <div class="avatar-placeholder">K</div>
+    <div class="hero-text">
+      <h1>Keyuan Zhang</h1>
+      <p class="title">Associate Professor · Department of Accounting</p>
+      <p class="title">Antai College of Economics and Management, Shanghai Jiao Tong University</p>
+      <div class="contact">
+        <span>&#9993; <a href="mailto:keyuanzhang@sjtu.edu.cn">keyuanzhang@sjtu.edu.cn</a></span>
+        <span>&#128222; +86 189-6822-3344</span>
+        <span>Shanghai, China</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <h2>About</h2>
+    <div class="about">
+      <p>
+        I am an Associate Professor of Accounting at the Antai College of Economics and Management,
+        Shanghai Jiao Tong University. My research interests span auditing, financial reporting, tax
+        policy, and the real effects of accounting and legal institutions on firms and the broader
+        economy. I also serve as a Master's supervisor.
+      </p>
+      <p>
+        I received my Ph.D. in Management (Accounting) from the National University of Singapore and
+        hold undergraduate and graduate degrees in Accounting from Renmin University of China.
+      </p>
+    </div>
+
+    <h2 style="margin-top:2rem;">Positions</h2>
+    <ul class="position-list">
+      <li>
+        <div class="pos-left">
+          <div class="pos-role">Associate Professor</div>
+          <div class="pos-org">Antai College of Economics and Management, Shanghai Jiao Tong University</div>
+        </div>
+        <span class="pos-date">Jul 2025 – present</span>
+      </li>
+      <li>
+        <div class="pos-left">
+          <div class="pos-role">Master's Supervisor</div>
+          <div class="pos-org">Antai College of Economics and Management, Shanghai Jiao Tong University</div>
+        </div>
+        <span class="pos-date">Jan 2023 – present</span>
+      </li>
+      <li>
+        <div class="pos-left">
+          <div class="pos-role">Assistant Professor</div>
+          <div class="pos-org">Antai College of Economics and Management, Shanghai Jiao Tong University</div>
+        </div>
+        <span class="pos-date">Aug 2022 – Jun 2025</span>
+      </li>
+    </ul>
+
+    <h2 style="margin-top:2rem;">Education</h2>
+    <ul class="edu-list">
+      <li>
+        <div>
+          <div class="edu-degree">Ph.D. in Management (Accounting)</div>
+          <div class="edu-school">National University of Singapore</div>
+        </div>
+        <div class="edu-year">2022</div>
+      </li>
+      <li>
+        <div>
+          <div class="edu-degree">Master of Accounting</div>
+          <div class="edu-school">Renmin University of China</div>
+        </div>
+        <div class="edu-year">2017</div>
+      </li>
+      <li>
+        <div>
+          <div class="edu-degree">Bachelor of Management (Accounting)</div>
+          <div class="edu-school">Renmin University of China</div>
+        </div>
+        <div class="edu-year">2014</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── PUBLICATIONS ── -->
+  <section id="publications">
+    <h2>Publications</h2>
+    <ol class="pub-list">
+      <li>
+        Oliver Zhen Li, Yupeng Lin, and <strong>Keyuan Zhang</strong>.
+        "<span class="pub-title">The 2003 U.S. Dividend Tax Cut, Small Business Loan Supply, and the Real Economy.</span>"
+        <span class="pub-journal">The Accounting Review</span>, 2026.
+        <div class="pub-note">
+          Presented at: Workshop on Public Policy, Firms and the Capital Market; Fudan University SAIF;
+          9th Berlin-Vallendar Tax Conference; 2022 European Accounting Association Talent Workshop;
+          NUS Business School.
+        </div>
+      </li>
+      <li>
+        <strong>Keyuan Zhang</strong>, Yupeng Lin, Ke Mai, and Rengong Zhang.
+        "<span class="pub-title">Unveiling the Hidden Hazards: Exploring the Unintended Consequences of Legal Changes on Employee Injuries.</span>"
+        Forthcoming, <span class="pub-journal">Journal of Applied Psychology</span>, 2026.
+        <div class="pub-note">Presented at: NUS Business School.</div>
+      </li>
+      <li>
+        Cuili Qian, Donal Crilly, Yupeng Lin, <strong>Keyuan Zhang</strong>, and Rengong Zhang.
+        "<span class="pub-title">Short-Selling Pressure and Workplace Safety: Curbing Short-Termism Through Stakeholder Interdependencies.</span>"
+        <span class="pub-journal">Organization Science</span>, 2023, 34(1): 358–379.
+      </li>
+      <li>
+        Dan Li, Zhifeng Yang, <strong>Keyuan Zhang</strong>, and Min Zhang.
+        "<span class="pub-title">Do Philanthropic Auditors Provide Higher-Quality Audit Services? Evidence from China.</span>"
+        <span class="pub-journal">International Journal of Accounting</span>, 2022, 57(3): 2250014.
+      </li>
+      <li>
+        Min Zhang, Lijing Tong, and <strong>Keyuan Zhang</strong>.
+        "<span class="pub-title">Do Political Resources Help City Commercial Banks 'Go Out'? Evidence from Cross-Regional Operations.</span>"
+        <span class="pub-journal">Systems Engineering — Theory &amp; Practice</span>, 2018, 38(4): 873–884.
+      </li>
+      <li>
+        Sheng Zhang, <strong>Keyuan Zhang</strong>, and Min Zhang.
+        "<span class="pub-title">Bank Connections and Dynamic Capital Structure Adjustment.</span>"
+        <span class="pub-journal">Accounting Research</span>, 2017, (2): 49–55.
+      </li>
+      <li>
+        Sheng Zhang, <strong>Keyuan Zhang</strong>, and Min Zhang.
+        "<span class="pub-title">Bank Ownership and Dynamic Capital Structure Adjustment of Firms: Evidence from China.</span>"
+        <span class="pub-journal">China Journal of Accounting Studies</span>, 2016, 4(2): 143–164.
+      </li>
+      <li>
+        <strong>Keyuan Zhang</strong>.
+        "<span class="pub-title">Accounting Treatment for Commodity Futures Hedging.</span>"
+        <span class="pub-journal">Finance &amp; Accounting</span>, 2016, (23): 38–40.
+      </li>
+    </ol>
+  </section>
+
+  <!-- ── WORKING PAPERS ── -->
+  <section id="working-papers">
+    <h2>Working Papers</h2>
+    <ul class="wp-list">
+      <li>
+        Daniel Aobdia, Zihui Li, <strong>Keyuan Zhang</strong>, and Min Zhang.
+        "<em>Individual Auditor Legal Liability and Internal Networks: Evidence from Mandatory Changes to Limited Liability Partnerships in China.</em>" 2025.
+        <div class="wp-note">
+          Presented at: Hunan University; SJTU Accounting Forum (Best Paper Award, 1st Prize, 2/156);
+          Southern University of Science and Technology; University of Southern California;
+          7th New Institutional Accounting International Symposium; Xi'an Jiao Tong University;
+          Renmin University of China.
+        </div>
+      </li>
+      <li>
+        Yupeng Lin, Sirui Wu, <strong>Keyuan Zhang</strong>, and Liandong Zhang.
+        "<em>Bank Goodwill Impairment and Regulatory Attention.</em>" 2025.
+      </li>
+      <li>
+        Daniel Aobdia, Yupeng Lin, <strong>Keyuan Zhang</strong>, and Jiaquan Yao.
+        "<em>Pressure, Disutility, and Turnover: Evidence from Corporate Accountants.</em>" 2024.
+        <div class="wp-note">
+          Presented at: Nankai University; Beijing Jiao Tong University;
+          Amsterdam Business School; Maastricht University.
+        </div>
+      </li>
+      <li>
+        Yiwen Chen, Erdong Wang, Shirley Jiexuan Wang, and <strong>Keyuan Zhang</strong>.
+        "<em>Mobile Broadband Access and Audit Market Competition.</em>" 2025.
+        <div class="wp-note">
+          Presented at: Accounting and Business Research–Fudan University Joint Conference.
+        </div>
+      </li>
+      <li>
+        Zihao Su, Bowen Yang, and <strong>Keyuan Zhang</strong>.
+        "<em>Dividend Tax Reform and Bank Credit Reallocation.</em>" 2026.
+        <div class="wp-note">
+          Presented at: 21st China Finance Annual Conference.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── RESEARCH GRANTS ── -->
+  <section id="research">
+    <h2>Research Grants</h2>
+    <ul class="project-list">
+      <li>
+        <strong>Principal Investigator</strong> — National Natural Science Foundation of China, Young Scientists Fund.<br />
+        <span class="proj-title">"Civil Liability Mechanisms and Auditor Internal Cooperation Behavior: A Study Based on Signature Networks."</span>
+        <span style="color:var(--muted);font-size:0.9rem;">Jan 2025 – Dec 2027 · ¥300,000</span>
+      </li>
+      <li>
+        <strong>Co-Investigator</strong> — National Natural Science Foundation of China, General Program.<br />
+        <span class="proj-title">"Tax Incentives for Venture Capital Firms and Innovation in Early-Stage Technology Enterprises: Impact and Mechanisms."</span>
+        <span style="color:var(--muted);font-size:0.9rem;">Jan 2025 – Dec 2028 · ¥400,000</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── TEACHING ── -->
+  <section id="teaching">
+    <h2>Teaching</h2>
+
+    <div class="teaching-block">
+      <h3>Shanghai Jiao Tong University — Instructor</h3>
+      <ul class="course-list">
+        <li>
+          <span>Financial Management <em>(Undergraduate)</em></span>
+          <span class="course-sems">Spring 2023, 2024, 2025 (Course Coordinator)</span>
+        </li>
+        <li>
+          <span>Financial Management <em>(Master of International Business)</em></span>
+          <span class="course-sems">Spring 2023, 2024, 2025</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="teaching-block">
+      <h3>National University of Singapore — Tutor</h3>
+      <ul class="course-list">
+        <li>
+          <span>Accounting for Decision Makers</span>
+          <span class="course-sems">Fall 2020, Spring 2022</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="teaching-block">
+      <h3>Renmin University of China — Teaching Assistant</h3>
+      <ul class="course-list">
+        <li>
+          <span>Principles of Accounting <em>(English Section)</em></span>
+          <span class="course-sems">Fall 2015, Fall 2016</span>
+        </li>
+        <li>
+          <span>Introduction to Financial Management</span>
+          <span class="course-sems">Spring 2016, Spring 2017</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SERVICE ── -->
+  <section id="service">
+    <h2>Academic Service</h2>
+
+    <div class="service-block">
+      <h3>Conference &amp; Workshop Organization</h3>
+      <ul>
+        <li>Organizing Committee, Antai Accounting &amp; Capital Markets Forum, 2024</li>
+        <li>Seminar Coordinator, Antai College of Economics and Management, SJTU, 2023</li>
+        <li>Coordinator, NUS Business School Finance &amp; Accounting Ph.D. Workshop, Spring 2021</li>
+      </ul>
+    </div>
+
+    <div class="service-block">
+      <h3>Referee</h3>
+      <ul>
+        <li>
+          <em>Accounting Horizons; Journal of Business Ethics; Asia-Pacific Journal of Accounting &amp; Economics;
+          China Journal of Accounting Research; International Tax and Public Finance;</em>
+          AAA FARS Midyear Meeting 2022; Hawaii Accounting Research Conference 2024.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── AWARDS ── -->
+  <section id="awards">
+    <h2>Awards &amp; Honors</h2>
+    <ul class="award-list">
+      <li><span class="award-year">2025</span><span>Outstanding Class Advisor, Shanghai Jiao Tong University</span></li>
+      <li><span class="award-year">2024</span><span>Outstanding Individual Performance (2023), Shanghai Jiao Tong University</span></li>
+      <li><span class="award-year">2023</span><span>Shanghai Overseas High-Level Talent Program, Shanghai Municipal Government</span></li>
+      <li><span class="award-year">2017–22</span><span>NUS Research Scholarship, National University of Singapore</span></li>
+      <li><span class="award-year">2016</span><span>National Scholarship, Ministry of Education, P.R. China</span></li>
+      <li><span class="award-year">2014–17</span><span>Graduate Academic Excellence Scholarship, Renmin University of China</span></li>
+      <li><span class="award-year">2014</span><span>Outstanding Graduate, Renmin University of China</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>Last updated: March 2026 &nbsp;·&nbsp; Keyuan Zhang &nbsp;·&nbsp; Shanghai Jiao Tong University</p>
+</footer>
+
+</body>
+</html>
